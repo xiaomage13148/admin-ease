@@ -1,5 +1,6 @@
 package com.ease.admin.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.ease.admin.bean.dto.UserLoginDto;
 import com.ease.admin.common.bean.enums.ResultEnum;
 import com.ease.admin.common.bean.vo.response.BaseResp;
@@ -26,5 +27,12 @@ public class LoginController {
     public BaseResp<String> userLogin(@RequestBody @Valid UserLoginDto userLoginDto) {
         String token = userService.userLogin(userLoginDto);
         return new BaseResp<>(ResultEnum.SUCCESS, token);
+    }
+
+    @Operation(summary = "用户登出")
+    @PostMapping("/userLoginOut")
+    public BaseResp<Object> userLoginOut() {
+        StpUtil.logout();
+        return new BaseResp<>(ResultEnum.SUCCESS);
     }
 }
