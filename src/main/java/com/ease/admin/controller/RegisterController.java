@@ -24,6 +24,11 @@ public class RegisterController {
     @Operation(summary = "用户注册")
     @PostMapping("/userRegister")
     public BaseResp<Object> userRegister(@RequestBody @Valid UserRegisterDto userRegisterDto) {
+        String username = userRegisterDto.getUsername();
+        Long userCount = userService.countUserByUsername(username);
+        if (userCount > 0) {
+            return new BaseResp<>(ResultEnum.UNKNOWN_EXCEPTION.getState(), "存在相同的用户名称");
+        }
         userService.userRegister(userRegisterDto);
         return new BaseResp<>(ResultEnum.SUCCESS);
     }

@@ -19,4 +19,11 @@ public interface UserService extends IService<User> {
      * @param userRegisterDto
      */
     void userRegister(UserRegisterDto userRegisterDto);
+
+    /**
+     * 根据用户名称统计用户
+     * @param username
+     * @return
+     */
+    Long countUserByUsername(String username);
 }
