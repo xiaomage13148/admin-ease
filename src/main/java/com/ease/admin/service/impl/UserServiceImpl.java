@@ -4,16 +4,17 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ease.admin.adapter.UserAdapter;
 import com.ease.admin.bean.dto.UserLoginDto;
 import com.ease.admin.bean.dto.UserRegisterDto;
 import com.ease.admin.bean.entity.User;
+import com.ease.admin.bean.vo.UserVo;
 import com.ease.admin.common.bean.enums.ResultEnum;
 import com.ease.admin.common.exception.CustomException;
 import com.ease.admin.common.utils.PasswordUtil;
 import com.ease.admin.mapper.UserMapper;
 import com.ease.admin.service.UserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,5 +80,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         StpUtil.login(userId);
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         return tokenInfo.getTokenValue();
+    }
+
+    @Override
+    public List<UserVo> queryAllUser() {
+        List<User> users = userMapper.selectList(Wrappers.lambdaQuery(User.class));
+        return userAdapter.buildUserVoList(users);
     }
 }

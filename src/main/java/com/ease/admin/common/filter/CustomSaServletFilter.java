@@ -1,0 +1,51 @@
+package com.ease.admin.common.filter;
+
+import cn.dev33.satoken.exception.BackResultException;
+import cn.dev33.satoken.exception.StopMatchException;
+import cn.dev33.satoken.filter.SaServletFilter;
+import cn.dev33.satoken.router.SaRouter;
+import cn.dev33.satoken.util.SaTokenConsts;
+import com.ease.admin.common.bean.enums.ResultEnum;
+import com.ease.admin.common.constant.Constant;
+import com.ease.admin.common.exception.CustomException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import org.springframework.core.annotation.Order;
+
+import java.io.IOException;
+
+/**
+ * 重写SaServletFilter
+ * Description: <br/>
+ *
+ * @author mjh8 <br/>
+ * @date: 2024/8/15 下午11:00 <br/>
+ * @since JDK 17
+ */
+@Order(SaTokenConsts.ASSEMBLY_ORDER)
+public class CustomSaServletFilter extends SaServletFilter {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        try {
+            // 执行全局过滤器
+            beforeAuth.run(null);
+            SaRouter.match(includeList).notMatch(excludeList).check(r -> {
+                auth.run(null);
+            });
+
+        } catch (StopMatchException e) {
+            // StopMatchException 异常代表：停止匹配，进入Controller
+
+        } catch (Throwable e) {
+            // 转发到 /myException
+            request.setAttribute(Constant.MY_EXCEPTION, new CustomException(ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getState(), ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getMsg() + ":" + e.getMessage()));
+            request.getRequestDispatcher("/" + Constant.MY_EXCEPTION).forward(request, response);
+            return;
+        }
+
+        // 执行
+        chain.doFilter(request, response);
+    }
+}

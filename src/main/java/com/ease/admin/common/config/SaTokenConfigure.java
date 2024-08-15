@@ -1,7 +1,14 @@
 package com.ease.admin.common.config;
 
 import cn.dev33.satoken.config.SaTokenConfig;
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.filter.SaServletFilter;
+import cn.dev33.satoken.router.SaHttpMethod;
+import cn.dev33.satoken.router.SaRouter;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import com.ease.admin.common.constant.Constant;
+import com.ease.admin.common.filter.CustomSaServletFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -30,4 +37,41 @@ public class SaTokenConfigure {
         config.setIsLog(true);                   // 是否输出操作日志
         return config;
     }
+
+    @Bean
+    public SaServletFilter getSaServletFilter() {
+        // 参考
+        // https://blog.csdn.net/qq_37681291/article/details/127208142
+        return new CustomSaServletFilter()
+                .addInclude("/**").addExclude(
+                        "/favicon.ico",
+                        "/doc.html",
+                        "/doc.html*",
+                        "/webjars/**",
+                        "/img.icons/**",
+                        "/swagger-resources/**",
+                        "/v3/api-docs/**")
+                .setAuth(obj -> {
+                    SaRouter.match("/**").notMatch("/login/userLogin", "/register/userRegister").check(r -> StpUtil.checkLogin());
+                })
+                .setError(e -> e)
+                .setBeforeAuth(r -> {
+                    SaHolder.getResponse()
+                            // 服务器名称
+                            .setServer("admin-ease")
+                            // 允许指定域访问跨域资源
+                            .setHeader("Access-Control-Allow-Origin", "*")
+                            // 允许所有请求方式
+                            .setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//                             有效时间
+//                            .setHeader("Access-Control-Max-Age", CorsConfiguration.MAX_AGE)
+//                            .setHeader("Access-Control-Expose-Headers", CorsConfiguration.ALLOWED_EXPOSE)
+//                             允许的header参数
+//                            .setHeader("Access-Control-Allow-Headers", CorsConfiguration.ALLOWED_HEADERS);
+
+                    // 预检请求 立马放行
+                    SaRouter.match(SaHttpMethod.OPTIONS).back();
+                });
+    }
+
 }

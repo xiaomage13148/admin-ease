@@ -4,6 +4,9 @@ import com.ease.admin.bean.dto.UserLoginDto;
 import com.ease.admin.bean.dto.UserRegisterDto;
 import com.ease.admin.bean.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ease.admin.bean.vo.UserVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,4 +40,10 @@ public interface UserService extends IService<User> {
      * @return
      */
     String userLogin(UserLoginDto userLoginDto);
+
+    /**
+     * 查询全部用户
+     * @return
+     */
+    List<UserVo> queryAllUser();
 }
