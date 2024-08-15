@@ -1,4 +1,4 @@
-package com.ease.admin.common.bean;
+package com.ease.admin.common.bean.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -32,13 +32,13 @@ public class BaseEntity {
      * 创建者
      */
     @TableField(value = "creator", fill = FieldFill.INSERT)
-    private Long creator;
+    private String creator;
 
     /**
      * 更新者
      */
     @TableField(value = "updater", fill = FieldFill.INSERT_UPDATE)
-    private Long updater;
+    private String updater;
 
     /**
      * 是否删除 0未删除 1已删除

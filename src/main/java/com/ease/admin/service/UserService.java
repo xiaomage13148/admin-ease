@@ -1,5 +1,6 @@
 package com.ease.admin.service;
 
+import com.ease.admin.bean.dto.UserRegisterDto;
 import com.ease.admin.bean.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
+    /**
+     * 用户注册
+     * @param userRegisterDto
+     */
+    void userRegister(UserRegisterDto userRegisterDto);
 }

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.ease.admin.common.bean.BaseEntity;
+import com.ease.admin.common.bean.entity.BaseEntity;
 
 import java.sql.Types;
 import java.util.Arrays;

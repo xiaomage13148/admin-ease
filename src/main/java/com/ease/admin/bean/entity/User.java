@@ -2,7 +2,7 @@ package com.ease.admin.bean.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.ease.admin.common.bean.BaseEntity;
+import com.ease.admin.common.bean.entity.BaseEntity;
 
 import java.io.Serial;
 import java.io.Serializable;
