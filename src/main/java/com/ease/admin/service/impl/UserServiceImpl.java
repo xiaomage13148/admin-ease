@@ -1,7 +1,11 @@
 package com.ease.admin.service.impl;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ease.admin.adapter.UserAdapter;
+import com.ease.admin.bean.dto.UserLoginDto;
 import com.ease.admin.bean.dto.UserRegisterDto;
 import com.ease.admin.bean.entity.User;
 import com.ease.admin.common.bean.enums.ResultEnum;
@@ -12,6 +16,8 @@ import com.ease.admin.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -43,5 +49,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Long countUserByUsername(String username) {
         return userMapper.selectCount(Wrappers.lambdaQuery(User.class).eq(User::getUsername, username));
+    }
+
+    @Override
+    public String userLogin(UserLoginDto userLoginDto) {
+        boolean login = StpUtil.isLogin();
+        if (login) {
+            return StpUtil.getTokenInfo().getTokenValue();
+        }
+        String username = userLoginDto.getUsername();
+        String password = userLoginDto.getPassword();
+        List<User> userList = userMapper.selectList(Wrappers.lambdaQuery(User.class)
+                .eq(User::getUsername, username)
+                .select(User::getUsername, User::getPassword, User::getId)
+        );
+        if (CollectionUtil.isEmpty(userList)) {
+            throw new CustomException(ResultEnum.USER_NOT_REGISTER_EXCEPTION);
+        }
+        if (userList.size() > 1) {
+            throw new CustomException(ResultEnum.USER_LOGIN_DATA_EXCEPTION);
+        }
+        User user = userList.get(0);
+        String encPassword = user.getPassword();
+        Boolean verified = PasswordUtil.verifyPassword(password, encPassword);
+        if (!verified) {
+            throw new CustomException(ResultEnum.USER_LOGIN_PASSWORD_EXCEPTION);
+        }
+        String userId = user.getId();
+        StpUtil.login(userId);
+        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+        return tokenInfo.getTokenValue();
     }
 }
