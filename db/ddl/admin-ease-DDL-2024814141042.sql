@@ -63,24 +63,6 @@ CREATE TABLE permission
     PRIMARY KEY (id)
 ) COMMENT = '权限表';
 
-DROP TABLE IF EXISTS token;
-CREATE TABLE token
-(
-    `id`          VARCHAR(32)   NOT NULL COMMENT '主键ID',
-    `user_id`     VARCHAR(32)   NOT NULL COMMENT '用户ID',
-    `token`       VARCHAR(1023) NOT NULL COMMENT 'token',
-    `expire_date` DATETIME      NOT NULL COMMENT '过期时间',
-    `creator`     VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '创建人',
-    `create_time` DATETIME      NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
-    `updater`     VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '修改人',
-    `update_time` DATETIME      NOT NULL DEFAULT current_timestamp COMMENT '修改时间',
-    `deleted`     TINYINT(1)    NOT NULL DEFAULT 0 COMMENT '是否删除  0 未删除 1 已删除',
-    PRIMARY KEY (id)
-) COMMENT = '用户Token表';
-
-
-CREATE UNIQUE INDEX idx_user_id ON token (user_id);
-
 DROP TABLE IF EXISTS user_role;
 CREATE TABLE user_role
 (

@@ -1,7 +1,5 @@
 package com.ease.admin.controller;
 
-import cn.dev33.satoken.stp.SaTokenInfo;
-import cn.dev33.satoken.stp.StpUtil;
 import com.ease.admin.bean.dto.UserLoginDto;
 import com.ease.admin.common.bean.enums.ResultEnum;
 import com.ease.admin.common.bean.vo.response.BaseResp;
