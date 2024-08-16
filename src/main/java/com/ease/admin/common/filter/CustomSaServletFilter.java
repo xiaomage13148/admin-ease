@@ -1,6 +1,5 @@
 package com.ease.admin.common.filter;
 
-import cn.dev33.satoken.exception.BackResultException;
 import cn.dev33.satoken.exception.StopMatchException;
 import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.router.SaRouter;
@@ -12,6 +11,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
@@ -24,11 +24,14 @@ import java.io.IOException;
  * @date: 2024/8/15 下午11:00 <br/>
  * @since JDK 17
  */
+@Slf4j
 @Order(SaTokenConsts.ASSEMBLY_ORDER)
 public class CustomSaServletFilter extends SaServletFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
+            log.warn("includeList: {}" , includeList);
+            log.warn("excludeList: {}" , excludeList);
             // 执行全局过滤器
             beforeAuth.run(null);
             SaRouter.match(includeList).notMatch(excludeList).check(r -> {
@@ -41,7 +44,7 @@ public class CustomSaServletFilter extends SaServletFilter {
         } catch (Throwable e) {
             // 转发到 /myException
             request.setAttribute(Constant.MY_EXCEPTION, new CustomException(ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getState(), ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getMsg() + ":" + e.getMessage()));
-            request.getRequestDispatcher("/" + Constant.MY_EXCEPTION).forward(request, response);
+            request.getRequestDispatcher("/filter/exception/" + Constant.MY_EXCEPTION).forward(request, response);
             return;
         }
 
