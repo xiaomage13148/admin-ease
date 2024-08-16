@@ -6,7 +6,6 @@ import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
 import com.ease.admin.common.constant.Constant;
 import com.ease.admin.common.filter.CustomSaServletFilter;
 import org.springframework.context.annotation.Bean;
