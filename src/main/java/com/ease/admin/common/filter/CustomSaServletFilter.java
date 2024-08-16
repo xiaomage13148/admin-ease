@@ -1,5 +1,6 @@
 package com.ease.admin.common.filter;
 
+import cn.dev33.satoken.exception.BackResultException;
 import cn.dev33.satoken.exception.StopMatchException;
 import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.router.SaRouter;
@@ -30,8 +31,8 @@ public class CustomSaServletFilter extends SaServletFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
-            log.warn("includeList: {}" , includeList);
-            log.warn("excludeList: {}" , excludeList);
+//            log.warn("includeList: {}" , includeList);
+//            log.warn("excludeList: {}" , excludeList);
             // 执行全局过滤器
             beforeAuth.run(null);
             SaRouter.match(includeList).notMatch(excludeList).check(r -> {
@@ -42,8 +43,21 @@ public class CustomSaServletFilter extends SaServletFilter {
             // StopMatchException 异常代表：停止匹配，进入Controller
 
         } catch (Throwable e) {
+            // 1. 获取异常处理策略结果
+            String errMsg = "";
+            if (e instanceof BackResultException) {
+                errMsg = e.getMessage();
+            } else {
+                Object err = error.run(e);
+                if (err instanceof Throwable) {
+                    errMsg = ((Throwable) err).getMessage();
+                } else {
+                    log.error("CustomSaServletFilter 异常处理异常: {}", err);
+                    errMsg = err.toString();
+                }
+            }
             // 转发到 /myException
-            request.setAttribute(Constant.MY_EXCEPTION, new CustomException(ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getState(), ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getMsg() + ":" + e.getMessage()));
+            request.setAttribute(Constant.MY_EXCEPTION, new CustomException(ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getState(), ResultEnum.USER_CHECK_LOGIN_EXCEPTION.getMsg() + ":" + errMsg));
             request.getRequestDispatcher("/filter/exception/" + Constant.MY_EXCEPTION).forward(request, response);
             return;
         }
