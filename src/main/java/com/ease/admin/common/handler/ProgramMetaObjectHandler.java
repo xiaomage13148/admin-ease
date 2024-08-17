@@ -1,5 +1,6 @@
 package com.ease.admin.common.handler;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
@@ -22,8 +23,8 @@ public class ProgramMetaObjectHandler implements MetaObjectHandler {
     private static final String UPDATER = "updater";
     private static final String UPDATETIME = "updateTime";
 
-    // TODO 默认的用户ID
-    private static final String userId = "defaultUserId";
+    // 用户ID
+    private static final String userId = StpUtil.getLoginId("defaultUserId");
 
     @Override
     public void insertFill(MetaObject metaObject) {
