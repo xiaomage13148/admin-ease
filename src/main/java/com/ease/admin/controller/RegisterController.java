@@ -27,7 +27,7 @@ public class RegisterController {
         String username = userRegisterDto.getUsername();
         Long userCount = userService.countUserByUsername(username);
         if (userCount > 0) {
-            return new BaseResp<>(ResultEnum.UNKNOWN_EXCEPTION.getState(), "存在相同的用户名称");
+            return new BaseResp<>(ResultEnum.UNKNOWN_EXCEPTION.getState(), "该用户名已注册，请尝试其他用户名");
         }
         userService.userRegister(userRegisterDto);
         return new BaseResp<>(ResultEnum.SUCCESS);

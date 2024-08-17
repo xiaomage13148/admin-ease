@@ -14,6 +14,7 @@ public enum ResultEnum {
     PARAMETER_IS_EMPTY_EXCEPTION("B0002", "参数为空"),
     PARAMETER_VERIFICATION_EXCEPTION("B0003", "参数校验异常"),
     USER_REGISTER_EXCEPTION("B0004", "用户注册异常"),
+    USER_NOT_PERMISSION_EXCEPTION("B0005", "用户没有对应权限"),
     UNKNOWN_EXCEPTION("F9999", "未知异常");
 
     private final String state;

@@ -3,6 +3,7 @@ package com.ease.admin.common.security;
 import cn.dev33.satoken.stp.StpInterface;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 public class StpInterfaceImpl implements StpInterface {
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return List.of();
+        return List.of("user::listAll");
     }
 
     @Override

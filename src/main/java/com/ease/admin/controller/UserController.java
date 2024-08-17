@@ -1,5 +1,6 @@
 package com.ease.admin.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.ease.admin.bean.vo.UserVo;
 import com.ease.admin.common.bean.enums.ResultEnum;
 import com.ease.admin.common.bean.vo.response.BaseResp;
@@ -30,6 +31,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @SaCheckPermission("user::listAll")
     @Operation(summary = "查询全部用户")
     @PostMapping("/queryAllUser")
     public BaseResp<List<UserVo>> queryAllUser() {
