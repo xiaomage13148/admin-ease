@@ -1,6 +1,9 @@
 package com.ease.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.ease.admin.adapter.RouteAdapter;
 import com.ease.admin.bean.entity.Route;
+import com.ease.admin.bean.vo.RouteInfoVo;
 import com.ease.admin.mapper.RouteMapper;
 import com.ease.admin.service.RouteService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,8 +27,17 @@ public class RouteServiceImpl extends ServiceImpl<RouteMapper, Route> implements
     @Autowired
     private RouteMapper routeMapper;
 
+    @Autowired
+    private RouteAdapter routeAdapter;
+
     @Override
-    public List<String> queryRouteIdList(Set<String> roleIdList) {
-        return routeMapper.queryRouteIdList(roleIdList);
+    public List<RouteInfoVo> queryRouteIdList(Set<String> roleIdList) {
+        List<String> distinctRouteIdList = routeMapper.queryRouteIdList(roleIdList);
+        List<Route> routeList = routeMapper.selectList(
+                Wrappers.lambdaQuery(Route.class)
+                        .in(Route::getId, distinctRouteIdList)
+                        .select(Route::getId, Route::getRouteCode)
+        );
+        return routeAdapter.buildRouteInfoVoList(routeList);
     }
 }

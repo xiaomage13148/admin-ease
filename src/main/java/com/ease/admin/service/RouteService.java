@@ -2,6 +2,7 @@ package com.ease.admin.service;
 
 import com.ease.admin.bean.entity.Route;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ease.admin.bean.vo.RouteInfoVo;
 
 import java.util.List;
 import java.util.Set;
@@ -21,5 +22,5 @@ public interface RouteService extends IService<Route> {
      * @param roleIdList
      * @return
      */
-    List<String> queryRouteIdList(Set<String> roleIdList);
+    List<RouteInfoVo> queryRouteIdList(Set<String> roleIdList);
 }

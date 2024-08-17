@@ -4,17 +4,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ease.admin.bean.entity.Permission">
-        <result column="id" property="id" />
-        <result column="creator" property="creator" />
-        <result column="create_time" property="createTime" />
-        <result column="updater" property="updater" />
-        <result column="update_time" property="updateTime" />
-        <result column="deleted" property="deleted" />
-        <result column="permission_code" property="permissionCode" />
-        <result column="permission_name" property="permissionName" />
+        <result column="id" property="id"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="updater" property="updater"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+        <result column="permission_code" property="permissionCode"/>
+        <result column="permission_name" property="permissionName"/>
     </resultMap>
-    <select id="queryPermissionCodeList" resultType="java.lang.String">
-        select distinct p.permission_code
+    <select id="queryPermissionCodeList" resultType="com.ease.admin.bean.vo.PermissionInfoVo">
+        select rp.route_id , p.permission_code
         from permission p
         inner join route_permission rp on p.id = rp.permission_id and p.deleted = rp.deleted
         <where>
@@ -24,5 +24,4 @@
             </foreach>
         </where>
     </select>
-
 </mapper>

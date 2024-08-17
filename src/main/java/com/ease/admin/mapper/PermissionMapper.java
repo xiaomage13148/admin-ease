@@ -1,11 +1,11 @@
 package com.ease.admin.mapper;
 
-import com.ease.admin.bean.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ease.admin.bean.entity.Permission;
+import com.ease.admin.bean.vo.PermissionInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -23,5 +23,5 @@ public interface PermissionMapper extends BaseMapper<Permission> {
      * @param routeIdList
      * @return
      */
-    List<String> queryPermissionCodeList(@Param("routeIdList") Set<String> routeIdList);
+    List<PermissionInfoVo> queryPermissionCodeList(@Param("routeIdList") List<String> routeIdList);
 }

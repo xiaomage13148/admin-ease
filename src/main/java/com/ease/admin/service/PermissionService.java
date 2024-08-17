@@ -2,6 +2,7 @@ package com.ease.admin.service;
 
 import com.ease.admin.bean.entity.Permission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ease.admin.bean.vo.RouteInfoVo;
 
 import java.util.List;
 import java.util.Set;
@@ -18,8 +19,8 @@ public interface PermissionService extends IService<Permission> {
     /**
      * 查询权限代码
      *
-     * @param routeIdList
+     * @param routeInfoVoList
      * @return
      */
-    List<String> queryPermissionCodeList(Set<String> routeIdList);
+    List<String> queryPermissionCodeList(List<RouteInfoVo> routeInfoVoList);
 }
