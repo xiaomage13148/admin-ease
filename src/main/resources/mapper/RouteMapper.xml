@@ -16,5 +16,16 @@
         <result column="route_type" property="routeType" />
         <result column="parent_route_id" property="parentRouteId" />
     </resultMap>
+    <select id="queryRouteIdList" resultType="java.lang.String">
+        select distinct r.id
+        from route r
+        inner join role_route rr on r.id = rr.route_id and r.deleted = rr.deleted
+        <where>
+            r.deleted = 0 and rr.role_id in
+            <foreach collection="roleIdList" open="(" close=")" separator=" , " item="roleId">
+                #{roleId}
+            </foreach>
+        </where>
+    </select>
 
 </mapper>

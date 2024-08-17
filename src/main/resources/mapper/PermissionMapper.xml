@@ -13,5 +13,16 @@
         <result column="permission_code" property="permissionCode" />
         <result column="permission_name" property="permissionName" />
     </resultMap>
+    <select id="queryPermissionCodeList" resultType="java.lang.String">
+        select distinct p.permission_code
+        from permission p
+        inner join route_permission rp on p.id = rp.permission_id and p.deleted = rp.deleted
+        <where>
+            p.deleted = 0 and rp.route_id in
+            <foreach collection="routeIdList" open="(" close=")" separator=" , " item="routeId">
+                #{routeId}
+            </foreach>
+        </where>
+    </select>
 
 </mapper>

@@ -2,6 +2,10 @@ package com.ease.admin.mapper;
 
 import com.ease.admin.bean.entity.Route;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -13,4 +17,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface RouteMapper extends BaseMapper<Route> {
 
+    /**
+     * 查询路由ID列表
+     *
+     * @param roleIdList
+     * @return
+     */
+    List<String> queryRouteIdList(@Param("roleIdList") Set<String> roleIdList);
 }

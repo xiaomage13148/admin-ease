@@ -4,7 +4,11 @@ import com.ease.admin.bean.entity.Route;
 import com.ease.admin.mapper.RouteMapper;
 import com.ease.admin.service.RouteService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -17,4 +21,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RouteServiceImpl extends ServiceImpl<RouteMapper, Route> implements RouteService {
 
+    @Autowired
+    private RouteMapper routeMapper;
+
+    @Override
+    public List<String> queryRouteIdList(Set<String> roleIdList) {
+        return routeMapper.queryRouteIdList(roleIdList);
+    }
 }
