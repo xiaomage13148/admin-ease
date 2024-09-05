@@ -23,8 +23,9 @@ public class ProgramMetaObjectHandler implements MetaObjectHandler {
     private static final String UPDATER = "updater";
     private static final String UPDATETIME = "updateTime";
 
-    // 用户ID
-    private static final String userId = StpUtil.getLoginId("defaultUserId");
+    // TODO 用户ID StpUtil.getLoginId("defaultUserId") 调用这个API存在问题
+    // https://gitee.com/uncarbon97/helio-starters/blob/2.x/helio-starter-crud/src/main/java/cc/uncarbon/framework/crud/handler/MybatisPlusAutoFillColumnHandler.java
+    private static final String userId = "defaultUserId";
 
     @Override
     public void insertFill(MetaObject metaObject) {
