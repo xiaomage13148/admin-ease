@@ -27,7 +27,6 @@ import java.io.IOException;
  * @since JDK 17
  */
 @Slf4j
-@WebFilter(filterName = "customSaServletFilter")
 @Order(SaTokenConsts.ASSEMBLY_ORDER)
 public class CustomSaServletFilter extends SaServletFilter {
     @Override
