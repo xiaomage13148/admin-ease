@@ -12,6 +12,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 
@@ -26,6 +27,7 @@ import java.io.IOException;
  * @since JDK 17
  */
 @Slf4j
+@WebFilter(filterName = "customSaServletFilter")
 @Order(SaTokenConsts.ASSEMBLY_ORDER)
 public class CustomSaServletFilter extends SaServletFilter {
     @Override

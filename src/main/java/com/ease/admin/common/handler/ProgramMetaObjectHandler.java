@@ -2,6 +2,7 @@ package com.ease.admin.common.handler;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.ease.admin.common.context.UserContextHolder;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +24,7 @@ public class ProgramMetaObjectHandler implements MetaObjectHandler {
     private static final String UPDATER = "updater";
     private static final String UPDATETIME = "updateTime";
 
-    // TODO 用户ID StpUtil.getLoginId("defaultUserId") 调用这个API存在问题
-    // https://gitee.com/uncarbon97/helio-starters/blob/2.x/helio-starter-crud/src/main/java/cc/uncarbon/framework/crud/handler/MybatisPlusAutoFillColumnHandler.java
-    private static final String userId = "defaultUserId";
+    private static final String userId = UserContextHolder.getUserId();
 
     @Override
     public void insertFill(MetaObject metaObject) {
