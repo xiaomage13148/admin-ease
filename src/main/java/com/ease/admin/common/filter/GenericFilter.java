@@ -5,15 +5,10 @@ import com.ease.admin.common.context.UserContext;
 import com.ease.admin.common.context.UserContextHolder;
 import com.ease.admin.common.utils.IpUtil;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "genericFilter", urlPatterns = "/")
-@Order(Ordered.HIGHEST_PRECEDENCE)
 public class GenericFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,6 +21,7 @@ public class GenericFilter implements Filter {
         UserContextHolder.clear();
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        // TODO 存在问题 非 web 上下文无法获取 HttpServletRequest
         String userId = StpUtil.getLoginId("defaultUserId");
         String clientIp = IpUtil.getIpAddr(httpServletRequest);
         UserContext userContext = UserContext.builder()

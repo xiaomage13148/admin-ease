@@ -27,7 +27,6 @@ import java.io.IOException;
  * @since JDK 17
  */
 @Slf4j
-@Order(SaTokenConsts.ASSEMBLY_ORDER)
 public class CustomSaServletFilter extends SaServletFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
