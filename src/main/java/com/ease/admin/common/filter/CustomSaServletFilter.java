@@ -4,7 +4,6 @@ import cn.dev33.satoken.exception.BackResultException;
 import cn.dev33.satoken.exception.StopMatchException;
 import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.router.SaRouter;
-import cn.dev33.satoken.util.SaTokenConsts;
 import com.ease.admin.common.bean.enums.ResultEnum;
 import com.ease.admin.common.constant.Constant;
 import com.ease.admin.common.exception.CustomException;
@@ -12,9 +11,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
 
