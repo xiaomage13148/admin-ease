@@ -21,7 +21,6 @@ public class GenericFilter implements Filter {
         UserContextHolder.clear();
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        // TODO 存在问题 非 web 上下文无法获取 HttpServletRequest
         String userId = StpUtil.getLoginId("defaultUserId");
         String clientIp = IpUtil.getIpAddr(httpServletRequest);
         UserContext userContext = UserContext.builder()
