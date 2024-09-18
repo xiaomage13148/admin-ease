@@ -24,13 +24,11 @@ public class ProgramMetaObjectHandler implements MetaObjectHandler {
     private static final String UPDATER = "updater";
     private static final String UPDATETIME = "updateTime";
 
-    private static final String userId = UserContextHolder.getUserId();
-
     @Override
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        this.strictInsertFill(metaObject, CREATOR, String.class, userId);
-        this.strictInsertFill(metaObject, UPDATER, String.class, userId);
+        this.strictInsertFill(metaObject, CREATOR, String.class, UserContextHolder.getUserId());
+        this.strictInsertFill(metaObject, UPDATER, String.class, UserContextHolder.getUserId());
         this.strictInsertFill(metaObject, CREATETIME, LocalDateTime.class, now);
         this.strictInsertFill(metaObject, UPDATETIME, LocalDateTime.class, now);
     }
@@ -38,7 +36,7 @@ public class ProgramMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        this.strictUpdateFill(metaObject, UPDATER, String.class, userId);
+        this.strictUpdateFill(metaObject, UPDATER, String.class, UserContextHolder.getUserId());
         this.strictUpdateFill(metaObject, UPDATETIME, LocalDateTime.class, now);
     }
 }

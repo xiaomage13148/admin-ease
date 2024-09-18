@@ -1,5 +1,7 @@
 package com.ease.admin.common.context;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Optional;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Optional;
  * @author mjh8
  * @date 2024/9/6
  */
+@Slf4j
 public class UserContextHolder {
 
     private static final ThreadLocal<UserContext> THREAD_LOCAL_CONTEXT = new ThreadLocal<>();
