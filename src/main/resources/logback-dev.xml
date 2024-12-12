@@ -113,4 +113,10 @@
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
    <!-- 注意：如果不加 additivity="false" 则此logger会将输出转发到自身以及祖先的logger中，就会出现日志文件中sql重复打印-->
+
+    <logger name="com.ease.admin.common.p6spy.CustomLoggerFormat" level="INFO" additivity="false">
+        <appender-ref ref="info_log"/>
+        <appender-ref ref="error_log"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
 </configuration>

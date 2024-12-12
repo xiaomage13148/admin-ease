@@ -93,4 +93,14 @@ public class UserContextHolder {
         return context == null ? null : context.getClientIP();
     }
 
+    /**
+     * 捷径API-取当前的MethodApi
+     *
+     * @return "" or 当前MethodApi
+     */
+    public static String getMethodApi() {
+        UserContext context = getUserContext();
+        return context == null ? "" : context.getMethodApi();
+    }
+
 }

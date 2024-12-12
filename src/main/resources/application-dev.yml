@@ -26,11 +26,11 @@ knife4j:
 decorator:
   datasource:
     p6spy:
-      # 日志格式
-      log-format: "\ntime:%(executionTime) || sql:%(sql)\n"
       # 自定义日志类
       logging: custom
       custom-appender-class: com.ease.admin.common.p6spy.StdoutLogger
+      # 是否开启日志
+      enable-logging: true
 
 logging:
   config: classpath:logback-dev.xml

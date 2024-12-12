@@ -23,9 +23,11 @@ public class GenericFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String userId = StpUtil.getLoginId("defaultUserId");
         String clientIp = IpUtil.getIpAddr(httpServletRequest);
+        String methodApi = httpServletRequest.getRequestURI();
         UserContext userContext = UserContext.builder()
                 .userId(userId)
                 .clientIP(clientIp)
+                .methodApi(methodApi)
                 .build();
         UserContextHolder.setUserContext(userContext);
         chain.doFilter(request, response);

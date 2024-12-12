@@ -55,4 +55,6 @@ public class UserContext implements Serializable {
     @Schema(description = "客户端IP地址")
     private String clientIP;
 
+    @Schema(description = "请求方法API")
+    private String methodApi;
 }
