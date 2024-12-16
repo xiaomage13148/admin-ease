@@ -12,7 +12,9 @@ public class CustomLoggerFormat implements MessageFormattingStrategy {
         // 统一日志打印
         if (StringUtils.isNotBlank(sql)) {
             String methodApi = UserContextHolder.getMethodApi();
-            log.info("请求API: [{}] -- 消耗时间: [{} ms] -- 当前时间点: [{}] -- 执行SQL: {}", methodApi, elapsed, now, sql.replaceAll("\\s+", " "));
+            String clientIP = UserContextHolder.getClientIP();
+            log.info("SQL执行情况 -- 客户端IP: [{}] -- 请求API: [{}] -- 消耗时间: [{} ms] -- 当前时间点: [{}]", clientIP, methodApi, elapsed, now);
+            log.info("SQL具体执行 -- {}", sql.replaceAll("\\s+", " "));
         }
         return "";
     }
