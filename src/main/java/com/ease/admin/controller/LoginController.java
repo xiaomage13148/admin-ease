@@ -30,7 +30,7 @@ public class LoginController {
     }
 
     @Operation(summary = "用户登出")
-    @PostMapping("/userLoginOut")
+    @PostMapping("/userLogout")
     public BaseResp<Object> userLoginOut() {
         StpUtil.logout();
         return new BaseResp<>(ResultEnum.SUCCESS);
